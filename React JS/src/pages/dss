@@ -1,0 +1,42 @@
+
+
+
+// In the first component
+import { useSelector, useDispatch } from 'react-redux';
+import { useNavigate } from 'react-router-dom';
+
+function FirstComponent() {
+  const variableToShare = useSelector(state => state.variableToShare);
+  const dispatch = useDispatch();
+  const navigate = useNavigate();
+
+  const updateVariable = () => {
+    dispatch({ type: 'UPDATE_VARIABLE', payload: 'new value' });
+    navigate('/second');
+  };
+
+  return (
+    <div>
+      <button onClick={updateVariable}>Update Variable</button>
+    </div>
+  );
+}
+
+// In the second component
+function SecondComponent() {
+  const variableToShare = useSelector(state => state.variableToShare);
+  const dispatch = useDispatch();
+  const navigate = useNavigate();
+
+  const updateVariable = () => {
+    dispatch({ type: 'UPDATE_VARIABLE', payload: 'new value' });
+    navigate('/first');
+  };
+
+  return (
+    <div>
+      <button onClick={updateVariable}>Update Variable</button>
+      <p>{variableToShare}</p>
+    </div>
+  );
+}
